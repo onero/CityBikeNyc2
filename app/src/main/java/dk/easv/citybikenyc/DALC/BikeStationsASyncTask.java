@@ -1,5 +1,6 @@
 package dk.easv.citybikenyc.DALC;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -48,7 +49,7 @@ public class BikeStationsASyncTask extends ABikeStations {
         mTask.execute();
     }
 
-    public void startLoading()
+    public void loadAllBlocking()
     {
         try {
             String result = queryRESTurl(URL);
@@ -147,9 +148,12 @@ public class BikeStationsASyncTask extends ABikeStations {
 
 
 
+    @SuppressLint("StaticFieldLeak")
+
+
     public class InitializeTask extends AsyncTask<
-            Void,
-            Void,
+            Void, // input to doInBackground
+            Void, // progress
             ArrayList<BEBikeStation>> // output of doInBackground
     {
 
@@ -166,10 +170,8 @@ public class BikeStationsASyncTask extends ABikeStations {
         @Override
         protected ArrayList<BEBikeStation> doInBackground(Void... v) {
 
-
-
             Log.d(Global.TAG, "in doInBackGround ");
-            mBikeStations.startLoading();
+            mBikeStations.loadAllBlocking();
             return mBikeStations.getAll();
 
         }

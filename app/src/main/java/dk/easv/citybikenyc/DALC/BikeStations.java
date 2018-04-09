@@ -65,11 +65,7 @@ public class BikeStations extends ABikeStations {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 Log.d(Global.TAG, "onFailure " + statusCode);
-                if (errorResponse != null)
-                   Log.d(Global.TAG, "error response = " + errorResponse);
-                else
-                    Log.d(Global.TAG, "Error response = null");
-
+                Log.d(Global.TAG, "error response = " + (errorResponse == null? "null":errorResponse));
             }
 
             @Override
