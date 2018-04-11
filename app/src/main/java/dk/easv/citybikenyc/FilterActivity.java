@@ -1,12 +1,10 @@
 package dk.easv.citybikenyc;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -15,14 +13,12 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dk.easv.citybikenyc.DALC.BEBikeStation;
-import dk.easv.citybikenyc.DALC.BikeStations;
 import dk.easv.citybikenyc.DALC.BikeStationsASyncTask;
 import dk.easv.citybikenyc.DALC.IBikeStations;
 
@@ -67,8 +63,6 @@ public class FilterActivity extends AppCompatActivity {
 
             }
         });
-
-
         Log.d(Global.TAG, "OnCreate - loadAll completed");
 
     }
@@ -81,16 +75,17 @@ public class FilterActivity extends AppCompatActivity {
 
         mLvStations.setAdapter(adapter);
 
-
         mLvStations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 BEBikeStation s = f.get(position);
 
                 String msg = s.getName();
+                String status = s.getStatus();
 
-                Toast.makeText(getApplicationContext(),
-                        msg, Toast.LENGTH_SHORT).show();
+                String toastMessage = msg + " is currently " + status;
+
+                Toast.makeText(getApplicationContext(),toastMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -114,7 +109,6 @@ public class FilterActivity extends AppCompatActivity {
                 R.layout.cell,
                 new String[] { "number",       "name" },
                 new int[]    { R.id.txtNumber, R.id.txtName });
-
         return adapter;
     }
 

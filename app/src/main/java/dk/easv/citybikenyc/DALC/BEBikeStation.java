@@ -8,6 +8,7 @@ public class BEBikeStation {
 
 	private int m_number;
 	private String m_name;
+	private String mStatus;
 
 	public BEBikeStation(int number, String name)
 	{
@@ -15,9 +16,15 @@ public class BEBikeStation {
 		setName(name);
 	}
 
+	/***
+	 * Create BikeStation from JSON object
+	 * @param object
+	 * @throws JSONException
+	 */
 	public BEBikeStation(JSONObject object) throws JSONException {
 		setNumber(Integer.parseInt(object.getString("id")));
 		setName(object.getString("stationName"));
+		setStatus(object.getString("statusValue"));
 	}
 
 	public void setName(String m_name) {
@@ -34,4 +41,11 @@ public class BEBikeStation {
 
 	public int getNumber() { return m_number; }
 
+	public String getStatus() {
+		return mStatus;
+	}
+
+	public void setStatus(String status) {
+		mStatus = status;
+	}
 }

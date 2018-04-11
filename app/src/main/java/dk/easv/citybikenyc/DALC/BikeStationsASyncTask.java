@@ -32,7 +32,8 @@ import dk.easv.citybikenyc.IBELoaded;
 public class BikeStationsASyncTask extends ABikeStations {
 
 
-    private final String URL = "http://feeds.citibikenyc.com/stations/stations.json";
+    public static final String JSON_ARRAY_NAME = "stationBeanList";
+    private static final String URL = "http://feeds.citibikenyc.com/stations/stations.json";
 
     ArrayList<BEBikeStation> m_districts;
 
@@ -73,12 +74,12 @@ public class BikeStationsASyncTask extends ABikeStations {
             Log.d(Global.TAG, "Error: NO RESULT");
             return;
         }
-        JSONObject all = null;
-        JSONArray array = null;
+        JSONObject all;
+        JSONArray array;
         try {
             all = new JSONObject(result);
 
-            array = all.getJSONArray("stationBeanList");
+            array = all.getJSONArray(JSON_ARRAY_NAME);
 
 
             for (int i = 0; i < array.length(); i++) {
