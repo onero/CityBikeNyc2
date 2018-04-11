@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -29,16 +30,20 @@ public class FilterActivity extends AppCompatActivity {
 
     ListView mLvStations;
     EditText mFilterText;
+    private ProgressBar mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        mProgressBar = findViewById(R.id.progressBar);
+
         mBikeStations = new BikeStationsASyncTask(new IBELoaded() {
             @Override
             public void onFinished() {
                 initializeData();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
         mBikeStations.loadAll();
@@ -63,6 +68,7 @@ public class FilterActivity extends AppCompatActivity {
 
             }
         });
+        mProgressBar.animate();
         Log.d(Global.TAG, "OnCreate - loadAll completed");
 
     }

@@ -181,7 +181,6 @@ public class BikeStationsASyncTask extends ABikeStations {
         @Override
         protected void onPostExecute(final ArrayList<BEBikeStation> s) {
              mCallback.onFinished();
-
         }
 
     }
